@@ -19,10 +19,11 @@
 
 ### API Infrastructure
 
-- ✅ Hono integration for API routes
+- ✅ Next.js Route Handlers for API endpoints
 - ✅ TypeScript types for API endpoints
-- ✅ API client setup with RPC-style access
-- ✅ Basic error handling
+- ✅ Custom API client with fetch API
+- ✅ Type-safe request/response handling
+- ✅ Authentication middleware with HOF pattern
 
 ### Authentication
 
@@ -100,15 +101,38 @@ The i18n system uses Next.js App Router patterns with:
 
 ### API Client Implementation
 
-The API client uses Hono's client with TypeScript:
+The API client uses native fetch with TypeScript:
 
 ```typescript
 // Type-safe API client
-import { hc } from 'hono/client';
-import type { AppType } from '@/app/api/[[...route]]/route';
+import { User, UserCreate } from '@/features/users/schemas/userSchema';
 
-type ClientType = ReturnType<typeof hc<AppType>>;
-export const client: ClientType = hc<AppType>('/');
+type ApiResponse<T> = {
+  data?: T;
+  error?: string;
+  status: number;
+};
+
+// API client with typed methods
+export const apiClient = {
+  auth: {
+    login: async (credentials) => {
+      const response = await fetchApi<{ user: User; token: string }>('/auth/login', {
+        method: 'POST',
+        body: JSON.stringify(credentials),
+      });
+
+      // Store the token if login was successful
+      if (response.data?.token) {
+        setAuthToken(response.data.token);
+      }
+
+      return response;
+    },
+    // Additional methods...
+  },
+  // Additional namespaces...
+};
 ```
 
 ### Authentication Implementation
@@ -119,3 +143,4 @@ JWT-based authentication with:
 - Secure HTTP-only cookies
 - User state management with Zustand
 - Protected routes with middleware checks
+- Higher-order function pattern for protecting API routes

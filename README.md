@@ -1,11 +1,11 @@
 # FSKit - Full-Stack Starter Kit
 
-A modern full-stack starter kit built with Next.js, TypeORM, Hono, and Zod.
+A modern full-stack starter kit built with Next.js, TypeORM, and Zod.
 
 ## Tech Stack
 
 - **Frontend**: Next.js with App Router
-- **API**: Hono for edge-compatible API routes
+- **API**: Next.js Route Handlers for type-safe API routes
 - **Database**: TypeORM with entity models
 - **Authentication**: JWT-based auth system
 - **Form Validation**: Zod schemas with React Hook Form
@@ -73,7 +73,10 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 │   ├── locales/           # i18n translation files
 │   └── ...
 ├── src/
-│   ├── app/               # Next.js app router routes
+│   ├── app/               # Next.js app router routes and API route handlers
+│   │   ├── api/           # API route handlers
+│   │   ├── (routes)/      # Client routes
+│   │   └── ...
 │   ├── components/        # Reusable components
 │   │   ├── Forms/         # Form components with React Hook Form
 │   │   ├── Seo/           # SEO components
@@ -83,8 +86,10 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 │   │   ├── users/         # User management
 │   │   └── ...
 │   ├── lib/               # Shared libraries
+│   │   ├── api/           # API client utilities
+│   │   ├── auth/          # Auth utilities
 │   │   ├── db/            # Database connection and entities
-│   │   └── rpc/           # API client
+│   │   └── ...
 │   └── ...
 ```
 
@@ -117,7 +122,7 @@ This project follows conventional commits specification. Here are some examples:
 To learn more about the technologies used in this project:
 
 - [Next.js Documentation](https://nextjs.org/docs)
-- [Hono Documentation](https://hono.dev/)
+- [Next.js API Routes](https://nextjs.org/docs/app/building-your-application/routing/route-handlers)
 - [TypeORM Documentation](https://typeorm.io/)
 - [Zod Documentation](https://zod.dev/)
 - [TanStack React Query](https://tanstack.com/query)

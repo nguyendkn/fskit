@@ -14,11 +14,11 @@
 
 ### Backend
 
-- **Next.js API Routes**: Edge runtime
-- **Hono**: Edge-compatible API framework
+- **Next.js API Routes**: Edge runtime with Route Handlers
 - **TypeORM**: Database ORM
 - **Zod**: Schema validation
 - **JWT**: Authentication tokens
+- **Bcrypt**: Password hashing
 
 ### Developer Experience
 
@@ -100,3 +100,35 @@ CMD ["npm", "start"]
 ### Self-hosted
 
 Standard Next.js build and start process with environment variables
+
+## API Structure
+
+### Route Handlers
+
+The API uses Next.js Route Handlers with dedicated files for each endpoint:
+
+```
+src/app/api/
+├── auth/
+│   └── [...action]/      # Handles login and registration
+├── users/                # User management endpoints
+├── protected/            # Protected routes requiring authentication
+└── [[...route]]/         # Fallback handler for backward compatibility
+```
+
+### Authentication
+
+JWT-based authentication with middleware to protect routes:
+
+```typescript
+// src/lib/auth.ts
+export function withAuth(handler) {
+  return async (req) => {
+    const auth = await authenticateRequest(req);
+    if (!auth.isAuthenticated) {
+      return respondWithUnauthorized(auth.error);
+    }
+    return handler(req, auth.user);
+  };
+}
+```

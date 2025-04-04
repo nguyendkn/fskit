@@ -38,6 +38,19 @@
 
 ## Completed Tasks
 
+- [x] **TASK-009**: Replace Hono with Next.js Route Handlers
+
+  - Priority: HIGH
+  - Status: COMPLETED
+  - Description: Remove Hono dependency and replace with native Next.js Route Handlers
+  - Acceptance Criteria:
+    - Create dedicated API route files for all endpoints
+    - Create custom API client based on fetch API
+    - Update auth middleware for Next.js compatibility
+    - Remove Hono dependencies from package.json
+    - Update all code that uses Hono client
+  - Notes: Completed to simplify stack and improve maintainability
+
 - [x] **TASK-004**: Update Husky to v10 format
 
   - Priority: HIGH
