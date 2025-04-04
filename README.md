@@ -8,9 +8,13 @@ A modern full-stack starter kit built with Next.js, TypeORM, Hono, and Zod.
 - **API**: Hono for edge-compatible API routes
 - **Database**: TypeORM with entity models
 - **Authentication**: JWT-based auth system
-- **Form Validation**: Zod schemas
+- **Form Validation**: Zod schemas with React Hook Form
 - **State Management**: Zustand stores
 - **Data Fetching**: TanStack React Query
+- **Internationalization**: next-i18next for multi-language support
+- **Code Quality**: ESLint, Prettier, Husky, lint-staged, commitlint
+- **SEO**: Meta tags, JSON-LD, Open Graph, sitemap.xml, robots.txt
+- **Bundle Analysis**: Built-in bundle size monitoring
 
 ## Getting Started
 
@@ -20,6 +24,7 @@ First, set up your environment variables:
 # Create a .env.local file with the following
 JWT_SECRET=your_jwt_secret_here
 DATABASE_URL=your_database_connection_string
+SITE_URL=https://yourdomain.com
 ```
 
 Install dependencies:
@@ -52,18 +57,34 @@ pnpm dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the application.
 
+## Available Scripts
+
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run start` - Start production server
+- `npm run lint` - Run ESLint
+- `npm run format` - Run Prettier
+- `npm run analyze` - Analyze bundle size
+
 ## Project Structure
 
 ```
+├── public/
+│   ├── locales/           # i18n translation files
+│   └── ...
 ├── src/
-│   ├── app/                 # Next.js app router routes
-│   ├── features/            # Feature-based organization
-│   │   ├── auth/            # Authentication
-│   │   ├── users/           # User management
+│   ├── app/               # Next.js app router routes
+│   ├── components/        # Reusable components
+│   │   ├── Forms/         # Form components with React Hook Form
+│   │   ├── Seo/           # SEO components
 │   │   └── ...
-│   ├── lib/                 # Shared libraries
-│   │   ├── db/              # Database connection and entities
-│   │   └── rpc/             # API client
+│   ├── features/          # Feature-based organization
+│   │   ├── auth/          # Authentication
+│   │   ├── users/         # User management
+│   │   └── ...
+│   ├── lib/               # Shared libraries
+│   │   ├── db/            # Database connection and entities
+│   │   └── rpc/           # API client
 │   └── ...
 ```
 
@@ -72,7 +93,24 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 - **Type-safe API**: End-to-end type safety with API typing
 - **Authentication**: JWT-based authentication system
 - **User Management**: CRUD operations for users
-- **Form Validation**: Type-safe schema validation
+- **Form Validation**: Type-safe schema validation with React Hook Form
+- **Internationalization**: Support for multiple languages
+- **Code Quality Tools**: ESLint and Prettier configuration
+- **Git Hooks**: Husky setup with lint-staged and commitlint
+- **SEO Optimization**: Meta tags, structured data, and sitemap generation
+- **Bundle Analysis**: Monitor your bundle size during development
+
+## Git Commit Convention
+
+This project follows conventional commits specification. Here are some examples:
+
+- `feat: add new feature`
+- `fix: resolve bug issue`
+- `docs: update documentation`
+- `style: formatting, missing semi colons, etc.`
+- `refactor: refactor existing code`
+- `test: add or update tests`
+- `chore: update dependencies, etc.`
 
 ## Learn More
 
@@ -84,6 +122,8 @@ To learn more about the technologies used in this project:
 - [Zod Documentation](https://zod.dev/)
 - [TanStack React Query](https://tanstack.com/query)
 - [Zustand](https://github.com/pmndrs/zustand)
+- [React Hook Form](https://react-hook-form.com/)
+- [next-i18next](https://github.com/i18next/next-i18next)
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
