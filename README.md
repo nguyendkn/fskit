@@ -1,8 +1,46 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# FSKit - Full-Stack Starter Kit
+
+A modern full-stack starter kit built with Next.js, TypeORM, Hono, and Zod.
+
+## Tech Stack
+
+- **Frontend**: Next.js with App Router
+- **API**: Hono for edge-compatible API routes
+- **Database**: TypeORM with entity models
+- **Authentication**: JWT-based auth system
+- **Form Validation**: Zod schemas
+- **State Management**: Zustand stores
+- **Data Fetching**: TanStack React Query
 
 ## Getting Started
 
-First, run the development server:
+First, set up your environment variables:
+
+```bash
+# Create a .env.local file with the following
+JWT_SECRET=your_jwt_secret_here
+DATABASE_URL=your_database_connection_string
+```
+
+Install dependencies:
+
+```bash
+npm install
+# or
+yarn install
+# or
+pnpm install
+```
+
+Set up the database:
+
+```bash
+npm run db:setup
+# or
+yarn db:setup
+```
+
+Run the development server:
 
 ```bash
 npm run dev
@@ -10,22 +48,42 @@ npm run dev
 yarn dev
 # or
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the application.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+├── src/
+│   ├── app/                 # Next.js app router routes
+│   ├── features/            # Feature-based organization
+│   │   ├── auth/            # Authentication
+│   │   ├── users/           # User management
+│   │   └── ...
+│   ├── lib/                 # Shared libraries
+│   │   ├── db/              # Database connection and entities
+│   │   └── rpc/             # API client
+│   └── ...
+```
+
+## Features
+
+- **Type-safe API**: End-to-end type safety with API typing
+- **Authentication**: JWT-based authentication system
+- **User Management**: CRUD operations for users
+- **Form Validation**: Type-safe schema validation
 
 ## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+To learn more about the technologies used in this project:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- [Next.js Documentation](https://nextjs.org/docs)
+- [Hono Documentation](https://hono.dev/)
+- [TypeORM Documentation](https://typeorm.io/)
+- [Zod Documentation](https://zod.dev/)
+- [TanStack React Query](https://tanstack.com/query)
+- [Zustand](https://github.com/pmndrs/zustand)
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
