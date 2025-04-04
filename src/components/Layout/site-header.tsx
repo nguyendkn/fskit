@@ -1,7 +1,7 @@
 import { Button } from '@/shared/ui/button';
 import { Separator } from '@/shared/ui/separator';
 import { SidebarTrigger } from '@/shared/ui/sidebar';
-import { LanguageSelector } from '../LanguageSelector';
+import { LanguageSelector } from './language-selector';
 
 export function SiteHeader() {
   return (
