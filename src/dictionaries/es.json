@@ -1,0 +1,21 @@
+{
+  "app_name": "FSKit",
+  "welcome": "Bienvenido a FSKit",
+  "description": "Un kit de inicio full-stack moderno construido con Next.js, TypeORM, Hono y Zod.",
+  "nav": {
+    "home": "Inicio",
+    "about": "Acerca de",
+    "login": "Iniciar sesión",
+    "register": "Registrarse",
+    "dashboard": "Panel de control"
+  },
+  "auth": {
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "login": "Iniciar sesión",
+    "register": "Registrarse",
+    "forgot_password": "¿Olvidó su contraseña?",
+    "already_have_account": "¿Ya tiene una cuenta?",
+    "dont_have_account": "¿No tiene una cuenta?"
+  }
+}

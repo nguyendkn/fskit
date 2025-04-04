@@ -47,7 +47,8 @@
         "ci",
         "docs",
         "deps",
-        "config"
+        "config",
+        "i18n"
       ]
     ],
     "scope-empty": [0, "never"],
