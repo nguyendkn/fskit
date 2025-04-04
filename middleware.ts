@@ -25,29 +25,26 @@ export function getLocale(request: NextRequest): string {
   return matchLocale(languagesArray, locales, defaultLocale);
 }
 
+// This middleware will now only set a cookie for the locale instead of redirecting
 export function middleware(request: NextRequest) {
-  const pathname = request.nextUrl.pathname;
+  // Get locale either from cookie or from accept-language header
+  const locale = request.cookies.get('NEXT_LOCALE')?.value || getLocale(request);
 
-  // Check if the pathname is missing a locale
-  const pathnameIsMissingLocale = locales.every(
-    (locale) => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`,
-  );
+  // Create a response to pass along
+  const response = NextResponse.next();
 
-  // Redirect if there is no locale
-  if (pathnameIsMissingLocale) {
-    const locale = getLocale(request);
-
-    // e.g. incoming request is /products
-    // The new URL is /en/products
-    return NextResponse.redirect(
-      new URL(`/${locale}${pathname.startsWith('/') ? '' : '/'}${pathname}`, request.url),
-    );
+  // Set or update the locale cookie if it doesn't exist or is different
+  if (!request.cookies.has('NEXT_LOCALE') || request.cookies.get('NEXT_LOCALE')?.value !== locale) {
+    response.cookies.set('NEXT_LOCALE', locale, {
+      path: '/',
+      maxAge: 60 * 60 * 24 * 30, // 30 days
+    });
   }
+
+  return response;
 }
 
+// Export the config with a matcher that excludes static files and API routes
 export const config = {
-  matcher: [
-    // Skip all internal paths (_next)
-    '/((?!_next|api|favicon.ico).*)',
-  ],
+  matcher: ['/((?!_next|api|favicon.ico|assets|.*\\.).*)'],
 };

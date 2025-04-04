@@ -1,6 +1,7 @@
 import { Button } from '@/shared/ui/button';
 import { Separator } from '@/shared/ui/separator';
 import { SidebarTrigger } from '@/shared/ui/sidebar';
+import { LanguageSelector } from '../LanguageSelector';
 
 export function SiteHeader() {
   return (
@@ -10,6 +11,7 @@ export function SiteHeader() {
         <Separator orientation='vertical' className='mx-2 data-[orientation=vertical]:h-4' />
         <h1 className='text-base font-medium'>Documents</h1>
         <div className='ml-auto flex items-center gap-2'>
+          <LanguageSelector />
           <Button variant='ghost' asChild size='sm' className='hidden sm:flex'>
             <a
               href='https://github.com/shadcn-ui/ui/tree/main/apps/v4/app/(examples)/dashboard'

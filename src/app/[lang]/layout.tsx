@@ -1,3 +1,6 @@
+// This file is no longer needed as we're using a cookie-based language selection
+// The app can be reorganized to remove the [lang] directory structure later
+
 import { ReactNode } from 'react';
 import { Inter } from 'next/font/google';
 import { locales } from '../../../middleware';

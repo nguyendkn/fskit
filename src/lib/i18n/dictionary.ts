@@ -1,4 +1,5 @@
 import 'server-only';
+import { defaultLocale } from '../../../middleware';
 
 // Define the dictionary type
 export type Dictionary = {
@@ -13,7 +14,10 @@ const dictionaries: Record<string, () => Promise<Dictionary>> = {
   de: () => import('../../dictionaries/de.json').then((module) => module.default),
 };
 
-export const getDictionary = async (locale: string): Promise<Dictionary> => {
+export const getDictionary = async (localeParam?: string): Promise<Dictionary> => {
+  // Use the locale passed or default to English
+  const locale = localeParam || defaultLocale;
+
   // Check if the locale is supported
   if (!dictionaries[locale]) {
     // Fallback to English if locale is not supported
