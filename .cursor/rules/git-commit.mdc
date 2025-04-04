@@ -1,0 +1,28 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Git Commit Message Rules
+
+**Description**: Enforce Conventional Commits format and set a maximum body line length of 100 characters.
+
+## Rules
+
+1. **Header**:
+   - Must include a type (`feat`, `fix`, `docs`, `style`, `refactor`, `test`, `chore`).
+   - Scope is optional and should be enclosed in parentheses, e.g., `feat(auth):`.
+   - Subject must be concise (preferably ≤ 72 characters), written in imperative mood, and must not end with a period.
+
+2. **Body**:
+   - Provide a detailed explanation of the changes.
+   - Each line in the body must not exceed 200 characters.
+   - Use imperative mood and explain *what* and *why* the change was made, not *how*.
+
+3. **Footer**:
+   - Include references to issues or breaking changes if applicable.
+   - Breaking changes must start with `BREAKING CHANGE:` followed by a description.
+
+## Example Commit Messages
+
+### Feature Addition
