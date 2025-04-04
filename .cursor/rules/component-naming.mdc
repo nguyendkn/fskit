@@ -1,0 +1,84 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+ ---
+description: Guidelines for component naming, organization, and best practices
+globs: ["src/components/**", "src/features/*/components/**"]
+alwaysApply: false
+---
+# Component Structure and Naming Guidelines
+
+**Description**: This rule ensures consistent component organization, naming, and structure throughout the FSKit project.
+
+## Rules
+
+1. **Component Organization**:
+   - Shared components should be in `src/components/`
+   - Feature-specific components should be in `src/features/<feature>/components/`
+   - Group related components in subdirectories with an index.ts file
+   - Use a component directory with an index.ts when the component has multiple files
+
+2. **Component Naming**:
+   - Use PascalCase for component file names (e.g., `Button.tsx`, `UserProfile.tsx`)
+   - Use PascalCase for component folder names that contain a single component
+   - Directory name should match the main component name (e.g., `UserProfile/index.tsx`)
+   - Name test files with `.test.tsx` or `.spec.tsx` suffix
+
+3. **Component Structure**:
+   - Mark client components with `'use client';` at the top of the file
+   - Export components as named exports, not default exports
+   - Use TypeScript interfaces or types for component props
+   - Name prop types as `<ComponentName>Props` (e.g., `ButtonProps`)
+
+4. **Client/Server Components**:
+   - Server components should NOT have the `'use client'` directive
+   - Client components must have the `'use client'` directive at the top of the file
+   - Components with hooks or browser APIs must be client components
+   - Prefer server components when possible for better performance
+
+## Examples
+
+### Single Component File
+
+```tsx
+// src/components/Button/Button.tsx
+'use client';
+
+import { forwardRef } from 'react';
+
+export interface ButtonProps {
+  variant?: 'primary' | 'secondary';
+  size?: 'sm' | 'md' | 'lg';
+  children: React.ReactNode;
+  onClick?: () => void;
+}
+
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+  ({ variant = 'primary', size = 'md', children, onClick, ...props }, ref) => {
+    return (
+      <button
+        ref={ref}
+        className={`btn btn-${variant} btn-${size}`}
+        onClick={onClick}
+        {...props}
+      >
+        {children}
+      </button>
+    );
+  }
+);
+
+Button.displayName = 'Button';
+```
+
+### Component Directory
+
+```
+Button/
+├── Button.tsx       # Main component
+├── ButtonGroup.tsx  # Related component
+├── index.ts         # Re-exports
+└── Button.test.tsx  # Tests
+```

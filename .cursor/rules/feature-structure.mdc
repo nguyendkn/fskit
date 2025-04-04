@@ -1,0 +1,62 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+ ---
+description: Guidelines for feature-based directory structure and organization
+globs: ["src/features/**"]
+alwaysApply: false
+---
+# Feature Directory Structure Guidelines
+
+**Description**: This rule ensures consistent organization of feature folders in the FSKit project.
+
+## Rules
+
+1. **Feature Organization**:
+   - Each feature should be isolated in its own directory under `src/features/`.
+   - Features should encapsulate domain-specific functionality (e.g., auth, users, posts).
+   - Each feature directory should follow the structure below.
+
+2. **Required Subdirectories**:
+   - `/components`: UI components specific to this feature
+   - `/schemas`: Zod validation schemas and TypeScript interfaces
+   - `/hooks`: Custom React hooks for the feature
+   - `/stores`: State management (Zustand stores) 
+   - `/api`: API client functions for feature endpoints (optional)
+
+3. **Naming Conventions**:
+   - Component files should be PascalCase (e.g., `UserProfile.tsx`)
+   - Utility files should be camelCase (e.g., `userUtils.ts`)
+   - Schema files should end with `Schema` (e.g., `userSchema.ts`)
+   - Store files should end with `Store` (e.g., `authStore.ts`)
+   - Hook files should begin with `use` (e.g., `useAuth.ts`)
+
+4. **Exports**:
+   - Each directory should have an `index.ts` file to re-export its contents
+   - Use named exports instead of default exports
+
+## Example Structure
+
+```
+src/features/
+└── users/
+    ├── api/
+    │   ├── userApi.ts
+    │   └── index.ts
+    ├── components/
+    │   ├── UserList.tsx
+    │   ├── UserProfile.tsx
+    │   └── index.ts
+    ├── hooks/
+    │   ├── useUsers.ts
+    │   └── index.ts
+    ├── schemas/
+    │   ├── userSchema.ts
+    │   └── index.ts
+    ├── stores/
+    │   ├── userStore.ts
+    │   └── index.ts
+    └── index.ts
+```

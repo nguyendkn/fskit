@@ -1,0 +1,97 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+ ---
+description: Guidelines for API route handlers, structure, and patterns
+globs: ["src/app/api/**"]
+alwaysApply: false
+---
+# API Structure and Route Handler Guidelines
+
+**Description**: This rule ensures consistent organization and implementation of API endpoints using Next.js Route Handlers.
+
+## Rules
+
+1. **Route Organization**:
+   - API endpoints should be organized by domain under `src/app/api/`
+   - Each endpoint should have its own directory with a `route.ts` file
+   - Group related endpoints in a meaningful directory structure
+   - Follow RESTful practices for resource naming
+
+2. **HTTP Methods**:
+   - Each route.ts file should export functions named after HTTP methods (GET, POST, etc.)
+   - Use appropriate HTTP status codes for responses
+   - Handle errors consistently with proper error responses
+   - Return responses using `NextResponse.json()`
+
+3. **Authentication**:
+   - Protect routes using the withAuth Higher-Order Function
+   - Authenticate requests using JWT tokens
+   - Return appropriate 401/403 status codes for unauthorized requests
+   - Follow the authorization pattern established in `src/lib/auth.ts`
+
+4. **Validation**:
+   - Validate request data using Zod schemas
+   - Return 400 status code for invalid requests with validation errors
+   - Use schemas from feature directories (`src/features/*/schemas`)
+   - Implement consistent error responses for validation failures
+
+5. **Response Structure**:
+   - Return consistent response objects
+   - For success responses: `{ data: <data> }`
+   - For error responses: `{ error: <message>, details?: <details> }`
+   - Include appropriate HTTP status codes
+
+## Example Route Handler
+
+```typescript
+// src/app/api/users/route.ts
+import { NextRequest, NextResponse } from 'next/server';
+import { withAuth } from '@/lib/auth';
+import { userSchema } from '@/features/users/schemas/userSchema';
+import { getUsers, getUserById } from '@/lib/db/repositories/userRepository';
+
+// Public endpoint to get all users
+export async function GET(request: NextRequest) {
+  try {
+    const users = await getUsers();
+    return NextResponse.json({ data: users });
+  } catch (error) {
+    console.error('Error fetching users:', error);
+    return NextResponse.json(
+      { error: 'Failed to fetch users' },
+      { status: 500 }
+    );
+  }
+}
+
+// Protected endpoint to create a user
+export const POST = withAuth(async (request: NextRequest) => {
+  try {
+    const body = await request.json();
+    const result = userSchema.safeParse(body);
+    
+    if (!result.success) {
+      return NextResponse.json(
+        { error: 'Invalid user data', details: result.error.errors },
+        { status: 400 }
+      );
+    }
+    
+    // Process validated data...
+    
+    return NextResponse.json(
+      { data: /* result */ },
+      { status: 201 }
+    );
+  } catch (error) {
+    console.error('Error creating user:', error);
+    return NextResponse.json(
+      { error: 'Failed to create user' },
+      { status: 500 }
+    );
+  }
+});
+```

@@ -1,0 +1,97 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+ ---
+description: Guidelines for internationalization (i18n) patterns and implementation
+globs: ["src/lib/i18n/**", "src/dictionaries/**", "src/components/LanguageSelector/**"]
+alwaysApply: false
+---
+# Internationalization (i18n) Guidelines
+
+**Description**: This rule ensures consistent implementation of internationalization features throughout the FSKit project.
+
+## Rules
+
+1. **Language Configuration**:
+   - Supported locales should be defined in `middleware.ts` 
+   - Default locale should be 'en' (English)
+   - All UI text must be internationalized using dictionary entries
+   - Use cookie-based language selection instead of URL parameters
+
+2. **Dictionary Structure**:
+   - Dictionary files in `src/dictionaries/` should be JSON format
+   - One file per supported language (e.g., `en.json`, `fr.json`)
+   - Organize translation keys hierarchically by feature/page
+   - Use consistent naming for translation keys across languages
+
+3. **Dictionary Usage**:
+   - Use the `getDictionary` helper from `src/lib/i18n/dictionary.ts`
+   - Access nested dictionary keys using dot notation
+   - Add types for strongly-typed dictionary access
+   - Include all supported languages for every translation key
+
+4. **Language Switching**:
+   - Use the LanguageSelector component for language switching
+   - Language selection should be persistent via cookies
+   - Display language names in their native form (e.g., "Español" for Spanish)
+   - Provide accessible language selection UI
+
+## Example Dictionary Structure
+
+```json
+// src/dictionaries/en.json
+{
+  "common": {
+    "buttons": {
+      "submit": "Submit",
+      "cancel": "Cancel",
+      "save": "Save"
+    },
+    "validation": {
+      "required": "This field is required",
+      "email": "Please enter a valid email address"
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Sign In",
+      "emailLabel": "Email Address",
+      "passwordLabel": "Password",
+      "submitButton": "Sign In",
+      "forgotPassword": "Forgot your password?"
+    },
+    "register": {
+      "title": "Create Account",
+      "nameLabel": "Full Name",
+      "emailLabel": "Email Address",
+      "passwordLabel": "Password",
+      "submitButton": "Create Account"
+    }
+  }
+}
+```
+
+## Example Usage in Components
+
+```tsx
+// Server Component
+import { getDictionary } from '@/lib/i18n/dictionary';
+
+export default async function LoginPage() {
+  // Get dictionary based on the cookie or default locale
+  const dict = await getDictionary();
+  
+  return (
+    <div>
+      <h1>{dict.auth.login.title}</h1>
+      <LoginForm 
+        emailLabel={dict.auth.login.emailLabel}
+        passwordLabel={dict.auth.login.passwordLabel}
+        submitButton={dict.auth.login.submitButton}
+      />
+    </div>
+  );
+}
+```

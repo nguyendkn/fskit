@@ -1,0 +1,107 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+ ---
+description: TypeScript best practices and coding standards
+globs: ["**/*.ts", "**/*.tsx"]
+alwaysApply: false
+---
+# TypeScript Best Practices
+
+**Description**: This rule ensures consistent TypeScript patterns and best practices across the project.
+
+## Rules
+
+1. **Type Definitions**:
+   - Prefer interfaces for object types that can be extended
+   - Prefer type aliases for union types, intersections, and complex types
+   - Use Zod schemas with inferred types for validation
+   - Define reusable types in dedicated files
+
+2. **Typing Functions**:
+   - Always type function parameters and return values
+   - Use function overloads for functions with multiple signatures
+   - Use generics for reusable type patterns
+   - Don't use `any` type; prefer `unknown` when type is uncertain
+
+3. **Component Typing**:
+   - Define prop interfaces with meaningful names (e.g., `ButtonProps`)
+   - Use React.FC only when needed for forwardRef or other type requirements
+   - Explicitly define state types in useState hooks
+   - Type event handlers with appropriate event types
+
+4. **Type Assertions**:
+   - Minimize type assertions (`as SomeType`)
+   - Use type guards instead of assertions when possible
+   - When necessary, prefer `as` syntax over angle-bracket syntax
+   - Never use `any` to bypass type checking
+
+5. **Error Handling**:
+   - Type errors properly in catch blocks
+   - Use discriminated unions for error states
+   - Define custom error types when needed
+   - Ensure nullability is handled with optional chaining or nullish coalescing
+
+## Examples
+
+### Interface vs Type
+
+```typescript
+// Interface for objects (can be extended)
+interface User {
+  id: string;
+  name: string;
+  email: string;
+}
+
+// Extended interface
+interface AdminUser extends User {
+  role: 'admin';
+  permissions: string[];
+}
+
+// Type for unions and complex types
+type UserRole = 'admin' | 'editor' | 'viewer';
+type UserResponse = User | { error: string };
+```
+
+### Function Typing
+
+```typescript
+// Function with typed parameters and return type
+function getUserById(id: string): Promise<User | null> {
+  // implementation
+}
+
+// Generic function
+function getResource<T>(url: string): Promise<T> {
+  // implementation
+}
+
+// Event handler typing
+function handleClick(event: React.MouseEvent<HTMLButtonElement>): void {
+  // implementation
+}
+```
+
+### Type Guards
+
+```typescript
+// Type guard function
+function isAdminUser(user: User): user is AdminUser {
+  return 'role' in user && user.role === 'admin';
+}
+
+// Using type guard
+function handleUser(user: User) {
+  if (isAdminUser(user)) {
+    // TypeScript knows user is AdminUser here
+    console.log(user.permissions);
+  } else {
+    // TypeScript knows user is just User here
+    console.log('Not an admin');
+  }
+}
+```

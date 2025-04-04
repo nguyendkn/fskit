@@ -3,6 +3,11 @@ description:
 globs: 
 alwaysApply: false
 ---
+---
+description: Guidelines for Git commit messages following Conventional Commits format
+globs: 
+alwaysApply: false
+---
 # Git Commit Message Rules
 
 **Description**: Enforce Conventional Commits format and set a maximum body line length of 100 characters.
@@ -10,19 +15,65 @@ alwaysApply: false
 ## Rules
 
 1. **Header**:
-   - Must include a type (`feat`, `fix`, `docs`, `style`, `refactor`, `test`, `chore`).
-   - Scope is optional and should be enclosed in parentheses, e.g., `feat(auth):`.
-   - Subject must be concise (preferably ≤ 72 characters), written in imperative mood, and must not end with a period.
+   - Must include a type (`feat`, `fix`, `docs`, `style`, `refactor`, `test`, `chore`, `perf`, `build`, `ci`)
+   - Scope is optional and should be enclosed in parentheses, e.g., `feat(auth):`, `fix(api):`
+   - Subject must be concise, written in imperative mood, and must not end with a period
+   - Breaking changes must be indicated with `!` before the colon, e.g., `feat(api)!: change authentication flow`
 
 2. **Body**:
-   - Provide a detailed explanation of the changes.
-   - Each line in the body must not exceed 200 characters.
-   - Use imperative mood and explain *what* and *why* the change was made, not *how*.
+   - Provide a detailed explanation of the changes
+   - Each line in the body must not exceed 100 characters
+   - Use imperative mood and explain *what* and *why* the change was made, not *how*
+   - Separate body from header with a blank line
 
 3. **Footer**:
-   - Include references to issues or breaking changes if applicable.
-   - Breaking changes must start with `BREAKING CHANGE:` followed by a description.
+   - Include references to issues or breaking changes if applicable
+   - Breaking changes must start with `BREAKING CHANGE:` followed by a description
+   - Issue references should use GitHub keywords: `Fixes #123`, `Closes #456`
 
 ## Example Commit Messages
 
 ### Feature Addition
+```
+feat(auth): add refresh token functionality
+
+Implement token refresh mechanism to improve user session persistence.
+- Add token rotation for security
+- Create client-side handler for token refresh
+- Update tests to cover refresh flow
+
+Closes #123
+```
+
+### Bug Fix
+```
+fix(ui): resolve button alignment in mobile view
+
+Button was misaligned on small screens due to incorrect flexbox properties.
+This ensures proper alignment across all device sizes.
+```
+
+### Breaking Change
+```
+feat(api)!: change authentication flow
+
+BREAKING CHANGE: Authentication now requires JWT token instead of session cookies.
+Update client applications to use the new authentication method.
+```
+
+### Style Changes
+```
+style(components): fix lint errors in form components
+
+- Fix indentation issues
+- Remove unused imports
+- Add missing semicolons
+```
+
+### Documentation Updates
+```
+docs: update README with setup instructions
+
+Add detailed instructions for setting up the development environment
+including prerequisites and troubleshooting steps.
+```
