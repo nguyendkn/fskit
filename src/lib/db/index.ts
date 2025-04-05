@@ -1,27 +1,30 @@
 // /src/lib/db/index.ts
-import { DataSource } from "typeorm";
-import { User } from "./entities/User";
+import { DataSource } from 'typeorm';
+import { User } from './entities/User';
+import { Role } from './entities/Role';
+import { Permission } from './entities/Permission';
 
-export const AppDataSource = new DataSource({
-  type: "postgres",
-  host: process.env.DB_HOST,
-  port: parseInt(process.env.DB_PORT || "5432"),
-  username: process.env.DB_USERNAME,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME,
-  synchronize: process.env.NODE_ENV !== "production",
-  logging: process.env.NODE_ENV !== "production",
-  entities: [User],
-  migrations: [],
+export const Connection = new DataSource({
+  type: 'postgres',
+  host: process.env.DATABASE_HOST,
+  port: parseInt(process.env.DATABASE_PORT || '5432'),
+  username: process.env.DATABASE_USERNAME,
+  password: process.env.DATABASE_PASSWORD,
+  database: process.env.DATABASE_NAME,
+  synchronize: process.env.NODE_ENV !== 'production',
+  logging: process.env.NODE_ENV !== 'production',
+  entities: [User, Role, Permission],
   subscribers: [],
 });
 
-export async function initializeDatabase() {
+export async function GetDataSource() {
   try {
-    await AppDataSource.initialize();
-    console.log("Database connection initialized");
+    if (!Connection.isInitialized) {
+      await Connection.initialize();
+    }
+    return Connection;
   } catch (error) {
-    console.error("Error initializing database connection", error);
+    console.error('Error initializing database connection', error);
     throw error;
   }
 }

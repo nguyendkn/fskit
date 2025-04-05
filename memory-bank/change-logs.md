@@ -4,6 +4,16 @@
 
 ### Added
 
+- Role-Based Access Control (RBAC) system with permissions
+- Permission-based route protection middleware
+- JWT tokens with embedded roles and permissions
+- Role and permission entity relationships
+- Admin API endpoints with permission checks
+- User role management endpoints
+- Role and Permission entities with relationships to User
+- Database migration system for initial schema and data
+- Base data seeding with admin user, roles, and permissions
+- TypeORM migration scripts in package.json
 - App Router-based internationalization with middleware
 - Dictionary-based translation system with four languages
 - TypeORM entity configuration with best practices
@@ -12,6 +22,9 @@
 
 ### Changed
 
+- Updated authentication service to include roles and permissions
+- Enhanced JWT token with role and permission information
+- Updated database connection method to support migrations
 - Updated Husky to v10-compatible format
 - Improved error handling in API client
 - Enhanced TypeScript typing for API endpoints
@@ -19,6 +32,9 @@
 
 ### Fixed
 
+- Migration TypeScript execution issues with Node.js ESM loader
+- Custom tsconfig-node.json file for running migration scripts
+- Alternative JS migration runner for environments with TS execution problems
 - ESLint errors in language switcher component
 - TypeScript type issues in the API client
 - Husky Git hooks deprecated format warnings
@@ -51,7 +67,7 @@
 - Initial TypeScript type errors
 - Module resolution issues
 
-## 2023-07-30
+## 2025-07-30
 
 ### Added
 
@@ -77,7 +93,7 @@
 - Missing type definitions for API responses
 - Inconsistent error handling in API routes
 
-## 2023-06-15
+## 2025-06-15
 
 ### Added
 
@@ -97,9 +113,40 @@
 - ESLint configuration issues
 - Path alias resolution problems
 
+## 2025-04-05: Database Integration and Auth Service
+
+### Summary
+
+Replaced mock data arrays with actual database operations using TypeORM and PostgreSQL. Created reusable services for authentication and user management.
+
+### Changes
+
+1. Created auth service with functions for login, register, and token verification
+2. Created user service with CRUD operations
+3. Updated API routes to use the new services
+4. Added database connection initialization to all API routes
+
+### Files Modified
+
+- `src/app/api/users/route.ts`
+- `src/app/api/auth/[...action]/route.ts`
+- `src/app/api/[[...route]]/route.ts`
+
+### Files Created
+
+- `src/features/auth/services/authService.ts`
+- `src/features/users/services/userService.ts`
+
+### Technical Details
+
+- Using TypeORM for database operations
+- Using PostgreSQL as the database
+- Authentication service follows a consistent pattern with success/error response structure
+- Database connection is initialized in each API route if not already initialized
+
 ## Version History
 
-### v0.1.0 (2023-06-01)
+### v0.1.0 (2025-06-01)
 
 - Initial project setup
 - Core dependencies installation
