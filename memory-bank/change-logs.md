@@ -22,6 +22,7 @@
 
 ### Changed
 
+- Consolidated middleware files into a single file handling both i18n and authentication
 - Updated authentication service to include roles and permissions
 - Enhanced JWT token with role and permission information
 - Updated database connection method to support migrations
@@ -32,6 +33,8 @@
 
 ### Fixed
 
+- Combined duplicate middleware files to resolve conflicts
+- Updated middleware configuration to use new Next.js format with export const matcher
 - Migration TypeScript execution issues with Node.js ESM loader
 - Custom tsconfig-node.json file for running migration scripts
 - Alternative JS migration runner for environments with TS execution problems
