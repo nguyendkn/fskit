@@ -1,9 +1,6 @@
 'use client';
 
 import ProtectedRoute from '@/components/auth/protected-route';
-import { SidebarInset } from '@/shared/ui/sidebar';
-import { SidebarProvider } from '@/shared/ui/sidebar';
-import { AppSidebar } from '@/components/Layout/app-sidebar';
 import { SiteHeader } from '@/components/Layout/site-header';
 import { SectionCards } from '@/components/Layout/section-cards';
 import { ChartAreaInteractive } from '@/components/Layout/chart-area-interactive';
@@ -20,30 +17,20 @@ export default function DashboardPage() {
 
 function DashboardContainer() {
   return (
-    <SidebarProvider
-      style={
-        {
-          '--sidebar-width': 'calc(var(--spacing) * 72)',
-          '--header-height': 'calc(var(--spacing) * 12)',
-        } as React.CSSProperties
-      }
-    >
-      <AppSidebar variant='inset' />
-      <SidebarInset>
-        <SiteHeader />
-        <div className='flex flex-1 flex-col'>
-          <div className='@container/main flex flex-1 flex-col gap-2'>
-            <div className='flex flex-col gap-4 py-4 md:gap-6 md:py-6'>
-              <SectionCards />
-              <div className='px-4 lg:px-6'>
-                <ChartAreaInteractive />
-              </div>
-              <DataTable data={data} />
+    <>
+      <SiteHeader />
+      <div className='flex flex-1 flex-col'>
+        <div className='@container/main flex flex-1 flex-col gap-2'>
+          <div className='flex flex-col gap-4 py-4 md:gap-6 md:py-6'>
+            <SectionCards />
+            <div className='px-4 lg:px-6'>
+              <ChartAreaInteractive />
             </div>
+            <DataTable data={data} />
           </div>
         </div>
-      </SidebarInset>
-    </SidebarProvider>
+      </div>
+    </>
     // <div className='container mx-auto p-6'>
     //   <div className='mb-8 flex items-center justify-between'>
     //     <h1 className='text-3xl font-bold'>Dashboard</h1>
