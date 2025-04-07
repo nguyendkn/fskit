@@ -36,7 +36,7 @@ export async function loginUser(credentials: LoginCredentials) {
     // Find user by email with password included
     const user = await userRepository.findOne({
       where: { email: credentials.email },
-      select: ['id', 'email', 'name', 'passwordHash', 'createdAt', 'updatedAt'],
+      select: ['id', 'email', 'name', 'password', 'createdAt', 'updatedAt'],
     });
 
     if (!user) {
@@ -44,7 +44,7 @@ export async function loginUser(credentials: LoginCredentials) {
     }
 
     // Verify password
-    const isValidPassword = await compare(credentials.password, user.passwordHash);
+    const isValidPassword = await compare(credentials.password, user.password);
     if (!isValidPassword) {
       return { success: false, error: ERROR_MESSAGES.INVALID_CREDENTIALS };
     }
@@ -53,7 +53,7 @@ export async function loginUser(credentials: LoginCredentials) {
     const token = await createTokenWithRolesAndPermissions(user);
 
     // Remove password from response
-    const { passwordHash, ...userWithoutPassword } = user;
+    const { password, ...userWithoutPassword } = user;
 
     return {
       success: true,
@@ -90,14 +90,14 @@ export async function registerUser(userData: UserCreate) {
     // Create new user
     const newUser = userRepository.create({
       ...userData,
-      passwordHash: hashedPassword,
+      password: hashedPassword,
     });
 
     // Save to database
     await userRepository.save(newUser);
 
     // Remove password from response
-    const { passwordHash, ...userWithoutPassword } = newUser;
+    const { password, ...userWithoutPassword } = newUser;
 
     return {
       success: true,
