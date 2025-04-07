@@ -1,3 +1,5 @@
+'use client';
+
 import { Button } from '@/shared/ui/button';
 import { Card } from '@/shared/ui/card';
 import ProtectedRoute from '@/components/auth/protected-route';

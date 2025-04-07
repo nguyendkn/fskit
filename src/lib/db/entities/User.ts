@@ -22,7 +22,7 @@ export class User {
   name: string;
 
   @Column({ select: false }) // Don't select password by default for security
-  password: string;
+  passwordHash: string;
 
   @ManyToMany(() => Role)
   @JoinTable({
