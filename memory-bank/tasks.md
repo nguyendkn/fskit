@@ -2,6 +2,42 @@
 
 ## Active Tasks
 
+- [ ] **TASK-010**: Process missing auth logic
+
+  - Priority: HIGH
+  - Status: TESTING
+  - Description: Implement the missing authentication logic, including handling JWT tokens, protecting routes, and managing user sessions.
+  - Acceptance Criteria:
+    - Secure relevant API endpoints.
+    - Implement sign-in, sign-up, and sign-out functionality.
+    - Handle JWT token generation, storage, and validation.
+    - Implement route protection for authenticated users.
+    - Update UI components related to authentication (login form, user status).
+  - Notes: This involves frontend and backend changes. Need to review existing auth code (`src/lib/auth.ts`, `src/features/auth/*`, `middleware.ts`).
+  - Plan:
+    1. Analyze Existing Auth Code
+    2. Identify Missing Logic
+    3. Backend Implementation (API Routes: sign-in, sign-up, sign-out, protected routes)
+    4. Middleware Enhancement (`middleware.ts`)
+    5. Frontend Implementation (Components: LoginForm, SignUpForm; State: authStore; Token Storage; Protected Routes; UI Updates)
+    6. Testing
+    7. Linting
+    8. Documentation (Memory Bank & Commit)
+  - Implementation Progress:
+    - Created login API endpoint (`src/app/api/auth/login/route.ts`).
+    - Created register API endpoint (`src/app/api/auth/register/route.ts`).
+    - Updated `authStore` to manage authentication state and token storage.
+    - Updated `LoginForm.tsx` to connect to the login API.
+    - Created `SignUpForm.tsx`.
+    - Updated `src/app/(routes)/(unprotected)/auth/sign-up/page.tsx` to use `SignUpForm`.
+    - Updated `middleware.ts` to verify JWT tokens and protect routes.
+  - Remaining:
+    - Thorough testing of sign-in, sign-up, and route protection.
+    - Linting.
+    - Implement sign-out functionality.
+    - Integrate RBAC checks into the middleware.
+    - Improve error handling.
+
 - [ ] **TASK-001**: Fix Dependabot issues with dependency conflicts
 
   - Priority: HIGH

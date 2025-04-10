@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import acceptLanguage from 'accept-language';
 import { match as matchLocale } from '@formatjs/intl-localematcher';
+import { verifyToken } from './src/features/auth/services/authService';
 
 // Supported locales
 export const locales = ['en', 'fr', 'es', 'de'];
@@ -37,7 +38,7 @@ function getLocale(request: NextRequest): string {
 }
 
 // Combined middleware for both internationalization and authentication
-export function middleware(request: NextRequest) {
+export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const response = NextResponse.next();
 
@@ -54,17 +55,20 @@ export function middleware(request: NextRequest) {
   }
 
   // PART 2: Authentication handling
-  // Get the auth token from cookies
-  const token = request.cookies.get('auth-storage')?.value;
+  // Get the auth token from local storage
+  const token = request.headers.get('Authorization')?.split(' ')[1];
   let isAuthenticated = false;
+  let user = null;
 
-  // Parse the cookie content if it exists
   if (token) {
     try {
-      const authStorage = JSON.parse(decodeURIComponent(token));
-      isAuthenticated = authStorage.state?.isAuthenticated === true && !!authStorage.state?.token;
+      const verificationResult = await verifyToken(token);
+      if (verificationResult.success) {
+        isAuthenticated = true;
+        user = verificationResult.data;
+      }
     } catch (error) {
-      console.error('Error parsing auth cookie:', error);
+      console.error('Token verification error:', error);
     }
   }
 
@@ -88,7 +92,7 @@ export function middleware(request: NextRequest) {
 // Combined matcher for both internationalization and authentication
 export const matcher = [
   // i18n: Match all paths except static files and API routes
-  '/((?!_next|api|favicon.ico|assets|.*\\.).*))',
+  '/((?!_next|api|favicon.ico|assets|.*\.).*))',
   // Auth: Match protected paths
   '/dashboard/:path*',
   '/profile/:path*',
